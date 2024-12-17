@@ -102,9 +102,11 @@ function generateAbilityMacro(type) {
 //NOTE: Use the MancerRoll to generate random orders/players
 
 
-*/
+
 
 
 function appendToOutput(str) {
     document.getElementById("outputBlock").innerHTML += str;
 }
+
+*/
