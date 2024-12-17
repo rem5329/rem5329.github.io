@@ -32,6 +32,10 @@ function displayCreatureForm() {
     STR.setAttribute("type", "text");
     STR.setAttribute("name", "strMod");
     STR.setAttribute("placeholder", "Strength Modifier");
+
+    form.appendChild(STR);
+
+    document.getElementsByTagName("inputBlock")[0].appendChild(form);
     // Get the stats here
 
     //alert("test");
