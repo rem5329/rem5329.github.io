@@ -32,7 +32,7 @@ function displayCreatureForm() {
     STR.setAttribute("placeholder", "Strength Modifier");
     // Get the stats here
 
-    alert("test");
+    //alert("test");
     
     if (creatures == 'null') {
       var creatures = {};
