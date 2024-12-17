@@ -35,7 +35,7 @@ function displayCreatureForm() {
 
     form.appendChild(STR);
 
-    document.getElementsByTagName("inputBlock")[0].appendChild(form);
+    document.getElementById("inputBlock").append(form);
     // Get the stats here
 
     //alert("test");
