@@ -28,16 +28,17 @@ function creature(name,abilityList) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-    if (creatures != NULL) {
+    if (creatures == 'null') {
       var creatures = {};
     }
 
-    var creature = document.createElement("input");
-    creature.setAttribute("name", "text")
+    var STR = document.createElement("input");
+    STR.setAttribute("type", "text");
+    STR.setAttribute("name", "strMod");
+    STR.setAttribute("placeholder", "Strength Modifier");
     // Get the stats here
     
     // Then display ability forms - but only when asked
-    creatures.push(creature)
 }
 
 //generateFightMacro - takes list of monsters and adds their elements
