@@ -1,5 +1,5 @@
 function pageSelection(e) {
-    document.getElementById("myText").value = e.target.value
+    document.getElementById("myText").value = e.target.value;
 }
 
 // Tuples Object
@@ -28,6 +28,8 @@ function creature(name,abilityList) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
+    alert(test);
+    
     if (creatures == 'null') {
       var creatures = {};
     }
@@ -47,7 +49,7 @@ function generateFightMacro(creatures array) {
     //For each creature in the creature array, generate a line with their creature macro name
     for (creature in creatures) {
         fightMacroString += generateCreatureMacro(creature) + '\n';
-    }
+    };
 
     //Append the fight macro to the output
 }
@@ -58,7 +60,7 @@ function generateFightMacro(creatures array) {
 function generateCreatureMacro(creature) {
     for (creature in creatures) {
         //Generate drop down list of options
-    }
+    };
 
     //Append the created creature macro to the output
 }
@@ -89,7 +91,7 @@ function generateAbilityMacro(type) {
         case Utility:
             generateUtilityMacro();
             break;;
-    }
+    };
 }
 
 //generateAttackMacro - Simple + to hit, and damage - atk
@@ -106,5 +108,5 @@ function generateAbilityMacro(type) {
 
 
 function appendToOutput(str) {
-    document.getElementById("outputBlock").innerHTML += str
+    document.getElementById("outputBlock").innerHTML += str;
 }
