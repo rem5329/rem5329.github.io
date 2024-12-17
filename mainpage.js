@@ -36,7 +36,7 @@ function displayCreatureForm() {
     STR.setAttribute("placeholder", "Strength Modifier");
     // Get the stats here
     
-    // Then display ability forms - but only when asked
+    // Then display ability forms - but only when asked, use a drop down menu for this
 }
 /*************************************
 //generateFightMacro - takes list of monsters and adds their elements
