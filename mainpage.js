@@ -24,7 +24,9 @@ function creature(name,abilityList) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-    
+
+    var form = document.createElement("form");
+    form.setAttribute("method","post");
 
     var STR = document.createElement("input");
     STR.setAttribute("type", "text");
