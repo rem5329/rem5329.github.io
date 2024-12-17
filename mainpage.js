@@ -24,17 +24,19 @@ function creature(name,abilityList) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-    alert("test");
     
-    if (creatures == 'null') {
-      var creatures = {};
-    }
 
     var STR = document.createElement("input");
     STR.setAttribute("type", "text");
     STR.setAttribute("name", "strMod");
     STR.setAttribute("placeholder", "Strength Modifier");
     // Get the stats here
+
+    alert("test");
+    
+    if (creatures == 'null') {
+      var creatures = {};
+    }
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
