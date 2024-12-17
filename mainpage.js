@@ -24,7 +24,7 @@ function creature(name,abilityList) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-    alert(test);
+    alert("test");
     
     if (creatures == 'null') {
       var creatures = {};
