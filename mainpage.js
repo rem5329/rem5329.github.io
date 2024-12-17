@@ -1,7 +1,3 @@
-function pageSelection(e) {
-    document.getElementById("myText").value = e.target.value;
-}
-
 // Tuples Object
 function tuple(key,value) {
     this.key = key;
@@ -42,7 +38,7 @@ function displayCreatureForm() {
     
     // Then display ability forms - but only when asked
 }
-
+/*************************************
 //generateFightMacro - takes list of monsters and adds their elements
 function generateFightMacro(creatures array) {
     var fightMacroString = "";
@@ -69,28 +65,28 @@ function generateAbilityMacro(type) {
     switch (type) {
         case Attack:
             generateAttackMacro();
-            break;;
+            break;
         case AttackNoDamage:
             generateAttackNoDamageMacro();
-            break;;
+            break;
         case AttackSave:
             generateAttackSaveMacro();
-            break;;
+            break;
         case Save:
             generateSaveMacro();
-            break;;
+            break;
         case Damage:
             generateDamageMacro();
-            break;;
+            break;
         case Check:
             generateCheckMacro();
-            break;;
+            break;
         case Spell:
             generateSpellMacro();
-            break;;
+            break;
         case Utility:
             generateUtilityMacro();
-            break;;
+            break;
     };
 }
 
@@ -105,6 +101,8 @@ function generateAbilityMacro(type) {
 
 //NOTE: Use the MancerRoll to generate random orders/players
 
+
+*/
 
 
 function appendToOutput(str) {
