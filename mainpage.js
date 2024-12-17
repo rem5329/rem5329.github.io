@@ -28,6 +28,7 @@ function displayCreatureForm() {
     var form = document.createElement("form");
     form.setAttribute("method","post");
 
+    //Start grabbing the stats
     var STR = document.createElement("input");
     STR.setAttribute("type", "text");
     STR.setAttribute("name", "strMod");
@@ -36,9 +37,6 @@ function displayCreatureForm() {
     form.appendChild(STR);
 
     document.getElementById("inputBlock").append(form);
-    // Get the stats here
-
-    //alert("test");
     
     if (creatures == 'null') {
       var creatures = {};
