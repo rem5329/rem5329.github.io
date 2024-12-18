@@ -77,12 +77,60 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     
 
-    var SavingThrows = document.createElement("input")
+    var SavingThrows = document.createElement("input");
     SavingThrows.setAttribute("type", "text");
     SavingThrows.setAttribute("name", "savingThrows");
     SavingThrows.setAttribute("placeholder", "Saving Throw Proficiencies");
 
     form.appendChild(SavingThrows);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
+    var Darkvision = document.createElement("input");
+    Darkvision.setAttribute("type", "text");
+    Darkvision.setAttribute("name", "darkvision");
+    Darkvision.setAttribute("placeholder", "Darkvision Distance");
+
+    form.appendChild(Darkvision); 
+    
+    var PassivePerception = document.createElement("input");
+    PassivePerception.setAttribute("type", "text");
+    PassivePerception.setAttribute("name", "passivePerception");
+    PassivePerception.setAttribute("placeholder", "Passive Perception");
+
+    form.appendChild(PassivePerception);    
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
+    var DamageResistances = document.createElement("input");
+    DamageResistances.setAttribute("type", "text");
+    DamageResistances.setAttribute("name", "damageResistances");
+    DamageResistances.setAttribute("placeholder", "Damage Resistances");
+
+    form.appendChild(DamageResistances);
+
+    var DamageImmunities = document.createElement("input");
+    DamageImmunities.setAttribute("type", "text");
+    DamageImmunities.setAttribute("name", "damageImmunities");
+    DamageImmunities.setAttribute("placeholder", "Damage Immunities");
+
+    form.appendChild(DamageImmunities);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
+    var ConditionImmunities = document.createElement("input");
+    ConditionImmunities.setAttribute("type", "text");
+    ConditionImmunities.setAttribute("name", "conditionImmunities");
+    ConditionImmunities.setAttribute("placeholder", "Condition Immunities");
+
+    form.appendChild(ConditionImmunities);
+
+    var Languages = document.createElement("input");
+    Languages.setAttribute("type", "text");
+    Languages.setAttribute("name", "languages");
+    Languages.setAttribute("placeholder", "Languages");
+
+    form.appendChild(Languages);
 
     document.getElementById("inputBlock").append(form);
     
