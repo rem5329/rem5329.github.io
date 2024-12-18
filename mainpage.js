@@ -36,6 +36,41 @@ function displayCreatureForm() {
 
     form.appendChild(STR);
 
+    var DEX = document.createElement("input");
+    DEX.setAttribute("type", "text");
+    DEX.setAttribute("name", "dexMod");
+    DEX.setAttribute("placeholder", "Dexterity Modifier");
+
+    form.appendChild(DEX);
+
+    var CON = document.createElement("input");
+    CON.setAttribute("type", "text");
+    CON.setAttribute("name", "conMod");
+    CON.setAttribute("placeholder", "Constitution Modifier");
+
+    form.appendChild(CON);
+
+    var INT = document.createElement("input");
+    INT.setAttribute("type", "text");
+    INT.setAttribute("name", "intMod");
+    INT.setAttribute("placeholder", "Intelligence Modifier");
+
+    form.appendChild(INT);
+
+    var WIS = document.createElement("input");
+    WIS.setAttribute("type", "text");
+    WIS.setAttribute("name", "wisMod");
+    WIS.setAttribute("placeholder", "Wisdom Modifier");
+
+    form.appendChild(WIS);
+
+    var CHA = document.createElement("input");
+    CHA.setAttribute("type", "text");
+    CHA.setAttribute("name", "chaMod");
+    CHA.setAttribute("placeholder", "Charisma Modifier");
+
+    form.appendChild(CHA);
+
     document.getElementById("inputBlock").append(form);
     
     if (creatures == 'null') {
