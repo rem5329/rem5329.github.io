@@ -71,6 +71,13 @@ function displayCreatureForm() {
 
     form.appendChild(CHA);
 
+    var SavingThrows = document.createElement("input")
+    SavingThrows.setAttribute("type", "text");
+    SavingThrows.setAttribute("name", "savingThrows");
+    SavingThrows.setAttribute("placeholder", "Saving Throw Proficiencies");
+
+    form.appendChild(SavingThrows);
+
     document.getElementById("inputBlock").append(form);
     
     if (creatures == 'null') {
