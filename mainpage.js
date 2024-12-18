@@ -31,7 +31,40 @@ function displayCreatureForm() {
     var form = document.createElement("form");
     form.setAttribute("method","post");
 
-    //Start grabbing the stats
+    var NAME = document.createElement("input");
+    NAME.setAttribute("type", "text");
+    NAME.setAttribute("name", "creatureName");
+    NAME.setAttribute("placeholder", "Creature Name");
+
+    form.appendChild(NAME);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
+    var AC = document.createElement("input");
+    AC.setAttribute("type", "text");
+    AC.setAttribute("name", "ac");
+    AC.setAttribute("placeholder", "Armor Class");
+
+    form.appendChild(AC);
+
+    var HP = document.createElement("input");
+    HP.setAttribute("type", "text");
+    HP.setAttribute("name", "hp");
+    HP.setAttribute("placeholder", "Health Point Maximum");
+
+    form.appendChild(HP);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
+    var MS = document.createElement("input");
+    MS.setAttribute("type", "text");
+    MS.setAttribute("name", "ms");
+    MS.setAttribute("placeholder", "Movement Speed");
+
+    form.appendChild(MS);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
     var STR = document.createElement("input");
     STR.setAttribute("type", "text");
     STR.setAttribute("name", "strMod");
@@ -199,7 +232,9 @@ function generateCreatureMacro(creature) {
 } */
 
 function displayCreatureAbilityForm(type) {
-    appendToOutput(type);
+    // Should display in a loop in this class
+    // Each loop iteration should add to the correct section of the "abilities" object
+    // At the end , send the abilities object to be processed and transformed
     /*switch (type) {
         case Attack:
             generateAttackMacro();
