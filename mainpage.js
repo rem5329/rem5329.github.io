@@ -124,6 +124,8 @@ function displayCreatureForm() {
     ConditionImmunities.setAttribute("placeholder", "Condition Immunities");
 
     form.appendChild(ConditionImmunities);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
 
     var Languages = document.createElement("input");
     Languages.setAttribute("type", "text");
@@ -131,6 +133,8 @@ function displayCreatureForm() {
     Languages.setAttribute("placeholder", "Languages");
 
     form.appendChild(Languages);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
 
     document.getElementById("inputBlock").append(form);
     
