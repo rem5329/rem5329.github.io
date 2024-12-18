@@ -136,6 +136,15 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
+    var Telepathy = document.createElement("input");
+    Telepathy.setAttribute("type", "text");
+    Telepathy.setAttribute("name", "telepathy");
+    Telepathy.setAttribute("placeholder", "Telepathy");
+
+    form.appendChild(Telepathy);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+
     document.getElementById("inputBlock").append(form);
     
     if (creatures == 'null') {
