@@ -155,22 +155,24 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
 
     var AddAbility = document.createElement("select");
-    AddAbility.add(new Option("Attack", "Attack");
-    AddAbility.add(new Option("Attack without Damage", "AttackNoDamage");
-    AddAbility.add(new Option("Attack with Save", "AttackSave");
-    AddAbility.add(new Option("Save", "Save");
-    AddAbility.add(new Option("Damage Only", "Damage");
-    AddAbility.add(new Option("Skill/Ability Check", "Check");
-    AddAbility.add(new Option("Spell", "Spell");
-    AddAbility.add(new Option("Utility", "Utility");
+    AddAbility.add(new Option("Attack", "Attack"));
+    AddAbility.add(new Option("Attack without Damage", "AttackNoDamage"));
+    AddAbility.add(new Option("Attack with Save", "AttackSave"));
+    AddAbility.add(new Option("Save", "Save"));
+    AddAbility.add(new Option("Damage Only", "Damage"));
+    AddAbility.add(new Option("Skill/Ability Check", "Check"));
+    AddAbility.add(new Option("Spell", "Spell"));
+    AddAbility.add(new Option("Utility", "Utility"));
     
     
     form.appendChild(AddAbility);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
 
     
     document.getElementById("inputBlock").append(form);
 
-    appendToOutput(AddAbility.value);
+    //appendToOutput(AddAbility.value);
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
