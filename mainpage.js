@@ -172,7 +172,7 @@ function displayCreatureForm() {
     
     document.getElementById("inputBlock").append(form);
 
-    //appendToOutput(AddAbility.value);
+    appendToOutput(AddAbility.value);
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
