@@ -188,14 +188,12 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
 
     var AddAbility = document.createElement("select");
-    AddAbility.add(new Option("Attack", "Attack"));
-    AddAbility.add(new Option("Attack without Damage", "AttackNoDamage"));
-    AddAbility.add(new Option("Attack with Save", "AttackSave"));
-    AddAbility.add(new Option("Save", "Save"));
-    AddAbility.add(new Option("Damage Only", "Damage"));
-    AddAbility.add(new Option("Skill/Ability Check", "Check"));
-    AddAbility.add(new Option("Spell", "Spell"));
-    AddAbility.add(new Option("Utility", "Utility"));
+    AddAbility.add(new Option("Innate Ability", "innate"));
+    AddAbility.add(new Option("Action", "action"));
+    AddAbility.add(new Option("Conditional Action", "condAction"));
+    AddAbility.add(new Option("Bonus Action", "bonusAction"));
+    AddAbility.add(new Option("Reaction", "reaction"));
+    AddAbility.add(new Option("Utility", "utility"));
     AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
     
     
@@ -208,34 +206,54 @@ function displayCreatureForm() {
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
-/*************************************
-//generateFightMacro - takes list of monsters and adds their elements
-function generateFightMacro(creatures array) {
-    var fightMacroString = "";
-    //For each creature in the creature array, generate a line with their creature macro name
-    for (creature in creatures) {
-        fightMacroString += generateCreatureMacro(creature) + '\n';
-    };
 
-    //Append the fight macro to the output
+// Function to turn abilities array into copyable macros
+function generateCreatureMacro(abilities array) {
+    var macroStr;
+
+    //Append generated macros to the output, return the name of the creature macro, for use in the creation of the fight macro
 }
-
-//generateCreatureMacro - takes a list of attacks/saves/damage/utility macros
-// Each ability goes in either Innate, Actions, Conditional Actions, Bonus Action, Reaction, or Utility
-// These categories should be split to be easy to see
-function generateCreatureMacro(creature) {
-    for (creature in creatures) {
-        //Generate drop down list of options
-    };
-
-    //Append the created creature macro to the output
-} */
 
 function displayCreatureAbilityForm(type) {
     // Should display in a loop in this class
     // Each loop iteration should add to the correct section of the "abilities" object
     // At the end , send the abilities object to be processed and transformed
-    /*switch (type) {
+
+    switch (type) {
+        case innate:
+            displayInnateForm();
+            break;
+        case action:
+            displayActionForm();
+            break;
+        case condAction:
+            displayCondActionForm();
+            break;
+        case bonusAction:
+            displayBonusActionForm();
+            break;
+        case reaction:
+            displayReactionForm();
+            break;
+        case utility:
+            displayUtilityForm();
+            break;
+    };
+
+    var AddAbility = document.createElement("select");
+    AddAbility.add(new Option("Attack", "Attack"));
+    AddAbility.add(new Option("Attack without Damage", "AttackNoDamage"));
+    AddAbility.add(new Option("Attack with Save", "AttackSave"));
+    AddAbility.add(new Option("Save", "Save"));
+    AddAbility.add(new Option("Damage Only", "Damage"));
+    AddAbility.add(new Option("Skill/Ability Check", "Check"));
+    AddAbility.add(new Option("Spell", "Spell"));
+    AddAbility.add(new Option("Utility", "Utility"));
+    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
+}
+
+function generateAbilityMacro(type) {
+    switch (type) {
         case Attack:
             generateAttackMacro();
             break;
@@ -260,9 +278,9 @@ function displayCreatureAbilityForm(type) {
         case Utility:
             generateUtilityMacro();
             break;
-    };*/
+    };
 }
-
+    
 //generateAttackMacro - Simple + to hit, and damage - atk
 //generateAttackNoDamageMacro - + to hit - npcatk
 //generateAttackSaveMacro - + to hit, damage, save DC, and note on save - atkdmg
