@@ -163,7 +163,7 @@ function displayCreatureForm() {
     AddAbility.add(new Option("Skill/Ability Check", "Check"));
     AddAbility.add(new Option("Spell", "Spell"));
     AddAbility.add(new Option("Utility", "Utility"));
-    AddAbility.addEventListener('change', displayCreatureAbilityForm(AddAbility.value));
+    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
     
     
     form.appendChild(AddAbility);
