@@ -146,10 +146,12 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
 
     document.getElementById("inputBlock").append(form);
+
+    var AddCreatureButton = document.createElement("input");
+    AddCreatureButton.setAttribute("type","button");
+    AddCreatureButton.setAttribute("name","addCreatureButton");
     
-    if (creatures == 'null') {
-      var creatures = {};
-    }
+    form.appendChild(AddCreatureButton);
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
