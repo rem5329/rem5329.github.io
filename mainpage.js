@@ -163,6 +163,7 @@ function displayCreatureForm() {
     AddAbility.add(new Option("Skill/Ability Check", "Check"));
     AddAbility.add(new Option("Spell", "Spell"));
     AddAbility.add(new Option("Utility", "Utility"));
+    AddAbility.addEventListener('change', displayCreatureAbilityForm(AddAbility.value);
     
     
     form.appendChild(AddAbility);
@@ -171,8 +172,6 @@ function displayCreatureForm() {
 
     
     document.getElementById("inputBlock").append(form);
-
-    appendToOutput(AddAbility.value);
     
     // Then display ability forms - but only when asked, use a drop down menu for this
 }
@@ -197,10 +196,11 @@ function generateCreatureMacro(creature) {
     };
 
     //Append the created creature macro to the output
-}
+} */
 
 function generateAbilityMacro(type) {
-    switch (type) {
+    appendToOutput(type);
+    /*switch (type) {
         case Attack:
             generateAttackMacro();
             break;
@@ -225,7 +225,7 @@ function generateAbilityMacro(type) {
         case Utility:
             generateUtilityMacro();
             break;
-    };
+    };*/
 }
 
 //generateAttackMacro - Simple + to hit, and damage - atk
