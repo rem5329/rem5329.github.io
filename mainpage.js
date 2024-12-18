@@ -1,3 +1,6 @@
+// Variables
+var br = document.createElement("br"); 
+
 // Tuples Object
 function tuple(key,value) {
     this.key = key;
@@ -70,6 +73,9 @@ function displayCreatureForm() {
     CHA.setAttribute("placeholder", "Charisma Modifier");
 
     form.appendChild(CHA);
+    form.appendChild(br.cloneNode());
+    form.appendChild(br.cloneNode());
+    
 
     var SavingThrows = document.createElement("input")
     SavingThrows.setAttribute("type", "text");
