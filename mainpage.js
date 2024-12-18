@@ -163,7 +163,7 @@ function displayCreatureForm() {
     AddAbility.add(new Option("Skill/Ability Check", "Check"));
     AddAbility.add(new Option("Spell", "Spell"));
     AddAbility.add(new Option("Utility", "Utility"));
-    AddAbility.addEventListener('change', displayCreatureAbilityForm(AddAbility.value);
+    AddAbility.addEventListener('change', displayCreatureAbilityForm(AddAbility.value));
     
     
     form.appendChild(AddAbility);
@@ -198,7 +198,7 @@ function generateCreatureMacro(creature) {
     //Append the created creature macro to the output
 } */
 
-function generateAbilityMacro(type) {
+function displayCreatureAbilityForm(type) {
     appendToOutput(type);
     /*switch (type) {
         case Attack:
