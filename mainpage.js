@@ -196,7 +196,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     
     
-    createAbilityActionCategories();
+    createAbilityActionCategories(form);
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
@@ -242,7 +242,7 @@ function submitCreature() {
 
 // *************************** DROP DOWN MENUS *****************************
 
-function createAbilityActionCategories() {
+function createAbilityActionCategories(form) {
     var AddAbility = document.createElement("select");
     AddAbility.add(new Option("Innate Ability", "innate"));
     AddAbility.add(new Option("Action", "action"));
@@ -253,10 +253,10 @@ function createAbilityActionCategories() {
     
     AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)}); 
 
-    document.getElementById("mainForm").appendChild(AddAbility);
+    form.appendChild(AddAbility);
 }
 
-function createAbilityTypes() {
+function createAbilityTypes(form) {
     var AddAbilityType = document.createElement("select");
     AddAbilityType.add(new Option("Attack", "Attack"));
     AddAbilityType.add(new Option("Attack without Damage", "AttackNoDamage"));
@@ -268,7 +268,7 @@ function createAbilityTypes() {
     AddAbilityType.add(new Option("Utility", "Utility"));
     AddAbilityType.addEventListener('change', function(){displayCreatureAbilityForm(AddAbilityType.value)});
 
-    document.getElementById("mainForm").appendChild(AddAbilityType);
+    form.appendChild(AddAbilityType);
 }
 
 // ****************** MACRO GENERATION SECTION ******************************
