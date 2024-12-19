@@ -1,10 +1,17 @@
-// Variables
-var br = document.createElement("br"); 
+// ************************ VARIABLES ***************************
+
+var br = document.createElement("br");
+// Creature list to ingest for overall macro creation
+var creatureList = {};
+
+// ************************ OBJECTS *****************************
 
 // Tuples Object
-function tuple(key,value) {
+function ability(key,value,actionType,abilityType) {
     this.key = key;
     this.value = value;
+    this.actionType = actionType;
+    this.abilityType = abilityType;
 }
 
 // Abilities Object
@@ -23,14 +30,13 @@ function creature(name,abilityList) {
     this.abiityList = abilityList;
 }
 
-var creatureList = {};
-
-//Functions:
+// ******************************************* DISPLAY FORMS **********************************
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
 
     var form = document.createElement("form");
+    form.setAttribute("id","mainForm");
     form.setAttribute("method","post");
 
     var NAME = document.createElement("input");
@@ -188,19 +194,9 @@ function displayCreatureForm() {
     form.appendChild(Extra);
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
-
-    var AddAbility = document.createElement("select");
-    AddAbility.add(new Option("Innate Ability", "innate"));
-    AddAbility.add(new Option("Action", "action"));
-    AddAbility.add(new Option("Conditional Action", "condAction"));
-    AddAbility.add(new Option("Bonus Action", "bonusAction"));
-    AddAbility.add(new Option("Reaction", "reaction"));
-    AddAbility.add(new Option("Utility", "utility"));
-    
-    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
     
     
-    form.appendChild(AddAbility);
+    createAbilityActionCategories();
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
@@ -209,25 +205,14 @@ function displayCreatureForm() {
     
 }
 
-// Function to turn abilities array into copyable macros
-function generateCreatureMacro(abilities) {
-    var macroStr;
 
-    for (innate in abilities.innate) {
-        appendToOutput(generateAbilityMacro(innate));
-        appendToCreatureMacro(innate);
-    }
-    // Once this works, repeat for actions, conditional actions, bonus actions, reactions, and extras
 
-    //Append generated macros to the output, return the name of the creature macro, for use in the creation of the fight macro
-}
-
-function displayCreatureAbilityForm(type) {
+function displayCreatureAbilityForm(curAbility) {
     // Should display in a loop in this class
     // Each loop iteration should add to the correct section of the "abilities" object
     // At the end , send the abilities object to be processed and transformed
 
-    switch (type) {
+    switch (curAbility.type) {
         case innate:
             displayInnateForm();
             break;
@@ -247,21 +232,61 @@ function displayCreatureAbilityForm(type) {
             displayUtilityForm();
             break;
     };
-
-    var AddAbility = document.createElement("select");
-    AddAbility.add(new Option("Attack", "Attack"));
-    AddAbility.add(new Option("Attack without Damage", "AttackNoDamage"));
-    AddAbility.add(new Option("Attack with Save", "AttackSave"));
-    AddAbility.add(new Option("Save", "Save"));
-    AddAbility.add(new Option("Damage Only", "Damage"));
-    AddAbility.add(new Option("Skill/Ability Check", "Check"));
-    AddAbility.add(new Option("Spell", "Spell"));
-    AddAbility.add(new Option("Utility", "Utility"));
-    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
+    
 }
 
-function generateAbilityMacro(type) {
-    switch (type) {
+// *************************** DROP DOWN MENUS *****************************
+
+function createAbilityActionCategories() {
+    var AddAbility = document.createElement("select");
+    AddAbility.add(new Option("Innate Ability", "innate"));
+    AddAbility.add(new Option("Action", "action"));
+    AddAbility.add(new Option("Conditional Action", "condAction"));
+    AddAbility.add(new Option("Bonus Action", "bonusAction"));
+    AddAbility.add(new Option("Reaction", "reaction"));
+    AddAbility.add(new Option("Utility", "utility"));
+    
+    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)}); 
+
+    document.getElementById("mainForm").appendChild(AddAbility);
+}
+
+function createAbilityTypes() {
+    var AddAbilityType = document.createElement("select");
+    AddAbilityType.add(new Option("Attack", "Attack"));
+    AddAbilityType.add(new Option("Attack without Damage", "AttackNoDamage"));
+    AddAbilityType.add(new Option("Attack with Save", "AttackSave"));
+    AddAbilityType.add(new Option("Save", "Save"));
+    AddAbilityType.add(new Option("Damage Only", "Damage"));
+    AddAbilityType.add(new Option("Skill/Ability Check", "Check"));
+    AddAbilityType.add(new Option("Spell", "Spell"));
+    AddAbilityType.add(new Option("Utility", "Utility"));
+    AddAbilityType.addEventListener('change', function(){displayCreatureAbilityForm(AddAbilityType.value)});
+
+    document.getElementById("mainForm").appendChild(AddAbilityType);
+}
+
+// ****************** MACRO GENERATION SECTION ******************************
+
+function generateStatMacro(name,str,dex,con,int,wis,cha,savingThrows,skills,darkvision,passivePerception,dmgResistances,dmgImmunities,condImmunities,languages,telepathy,extras) {
+    // Pretty straightforward function to generate the stat whisper block
+}
+
+// Function to turn abilities array into copyable macros
+function generateCreatureMacro(abilities) {
+    var macroStr;
+
+    for (innate in abilities.innate) {
+        appendToOutput(generateAbilityMacro(innate));
+        appendToCreatureMacro(innate);
+    }
+    // Once this works, repeat for actions, conditional actions, bonus actions, reactions, and extras
+
+    //Append generated macros to the output, return the name of the creature macro, for use in the creation of the fight macro
+}
+
+function generateAbilityMacro(curAbility) {
+    switch (curAbility.type) {
         case Attack:
             generateAttackMacro();
             break;
@@ -289,17 +314,40 @@ function generateAbilityMacro(type) {
     };
 }
     
-//generateAttackMacro - Simple + to hit, and damage - atk
-//generateAttackNoDamageMacro - + to hit - npcatk
-//generateAttackSaveMacro - + to hit, damage, save DC, and note on save - atkdmg
-//generateSaveMacro - Save DC, damage, and note on save - dmg
-//generateDamageMacro - only damage - npcdmg
-//generateCheckMacro - for skill/attribute checks that might be needed - npcatk
-//generateSpellMacro - for spell descriptions - spell
-//generateUtilityMacro - non-damage - desc
+//generateAttackMacro - Simple + to hit, and damage - atkdmg
+function generateAttackMacro(rname,modifier,range,dmg1,dmgmod1,dmgtype1,dmg2,dmgmod2,dmgtype2,desc,charname,extras) {
+}
 
-//NOTE: Use the MancerRoll to generate random orders/players
+//generateAttackNoDamageMacro - + to hit - npcatk
+function generateAttackNoDamageMacro(rname,modifier,description,extras) {
+}
+
+//generateAttackSaveMacro - + to hit, damage, save DC, and note on save - atkdmg
+function generateAttackSaveMacro(rname,modifier,range,dmg1,dmg1mod,dmg1type,dmg2,dmg2mod,dmg2type,saveattr,savedesc,savedc,desc,charname,extras) {
+}
+
+//generateSaveMacro - Save DC, damage, and note on save - dmg
+function generateSaveMacro(rname,range,dmg1,dmg1mod,dmg1type,dmg2,dmg2mod,dmg2type,saveattr,savedesc,savedc,desc,charname,extras) {
+}
+
+//generateDamageMacro - only damage - npcdmg
+function generateDamageMacro(dmg1,dmg1mod,dmg1type,dmg2,dmg2mod,dmg2type,extras) {
+}
+
+//generateCheckMacro - for skill/attribute checks that might be needed - npcatk
+function generateCheckMacro(rname,modifier,description,extras) {
+}
+
+//generateSpellMacro - for spell descriptions - spell
+function generateSpellMacro(name,level,castingtime,range,target,v,s,m,material,duration,description,athigherlevels,ritual,concentration,charname,extras) {
+}
+
+//generateUtilityMacro - non-damage - desc
+function generateUtilityMacro(desc,extras) {
+}
 
 function appendToOutput(str) {
     document.getElementById("outputBlock").innerHTML += str;
+    
+    document.getElementById("outputBlock").innerHTML += "<br><br>";
 }
