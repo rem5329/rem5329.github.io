@@ -23,6 +23,8 @@ function creature(name,abilityList) {
     this.abiityList = abilityList;
 }
 
+var creatureList = {};
+
 //Functions:
 
 // Each creature and attack needs a form display function
@@ -194,6 +196,7 @@ function displayCreatureForm() {
     AddAbility.add(new Option("Bonus Action", "bonusAction"));
     AddAbility.add(new Option("Reaction", "reaction"));
     AddAbility.add(new Option("Utility", "utility"));
+    
     AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)});
     
     
@@ -204,12 +207,17 @@ function displayCreatureForm() {
     
     document.getElementById("inputBlock").append(form);
     
-    // Then display ability forms - but only when asked, use a drop down menu for this
 }
 
 // Function to turn abilities array into copyable macros
-function generateCreatureMacro(abilities array) {
+function generateCreatureMacro(abilities) {
     var macroStr;
+
+    for (innate in abilities.innate) {
+        appendToOutput(generateAbilityMacro(innate));
+        appendToCreatureMacro(innate);
+    }
+    // Once this works, repeat for actions, conditional actions, bonus actions, reactions, and extras
 
     //Append generated macros to the output, return the name of the creature macro, for use in the creation of the fight macro
 }
