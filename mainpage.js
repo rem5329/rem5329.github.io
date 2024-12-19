@@ -1,6 +1,28 @@
 // ************************ VARIABLES ***************************
 
 var br = document.createElement("br");
+
+// Stats variables
+var NAME;
+var AC;
+var HP;
+var MS;
+var STR;
+var DEX;
+var CON;
+var INT;
+var WIS;
+var CHA;
+var SavingThrows;
+var Darkvision;
+var PassivePerception;
+var DamageResistances;
+var DamageImmunities;
+var ConditionImmunities;
+var Languages;
+var Telepathy;
+var Extras;
+
 // Creature list to ingest for overall macro creation
 var creatureList = {};
 
@@ -24,9 +46,13 @@ function abilities(innate,actions,condActions,bonusActions,reactions,utilities) 
     this.utilities = utilities;
 }
 
+function stats(name,ac,hp,ms,str,dex,con,int,wis,cha,savingThrows,darkvision,passivePerception,damageResistances,damageImmunities,conditionImmunities,languages,telepathy,extras) {
+}
+
 // Creature Object
-function creature(name,abilityList) {
+function creature(name,statList,abilityList) {
     this.name = name;
+    this.statList = statList;
     this.abiityList = abilityList;
 }
 
@@ -36,8 +62,8 @@ var curCreature;
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-
-    //generate a fresh creature object
+    
+    //generate a fresh creature object in the global variable
     curCreature = null;
     innateList = {};
     actionList = {};
@@ -51,23 +77,23 @@ function displayCreatureForm() {
     form.setAttribute("id","mainForm");
     form.setAttribute("method","post");
 
-    var NAME = document.createElement("input");
+    NAME = document.createElement("input");
     NAME.setAttribute("type", "text");
     NAME.setAttribute("name", "creatureName");
     NAME.setAttribute("placeholder", "Creature Name");
-
+    
     form.appendChild(NAME);
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var AC = document.createElement("input");
+    AC = document.createElement("input");
     AC.setAttribute("type", "text");
     AC.setAttribute("name", "ac");
     AC.setAttribute("placeholder", "Armor Class");
 
     form.appendChild(AC);
 
-    var HP = document.createElement("input");
+    HP = document.createElement("input");
     HP.setAttribute("type", "text");
     HP.setAttribute("name", "hp");
     HP.setAttribute("placeholder", "Health Point Maximum");
@@ -76,7 +102,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var MS = document.createElement("input");
+    MS = document.createElement("input");
     MS.setAttribute("type", "text");
     MS.setAttribute("name", "ms");
     MS.setAttribute("placeholder", "Movement Speed");
@@ -85,42 +111,42 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var STR = document.createElement("input");
+    STR = document.createElement("input");
     STR.setAttribute("type", "text");
     STR.setAttribute("name", "strMod");
     STR.setAttribute("placeholder", "Strength Modifier");
 
     form.appendChild(STR);
 
-    var DEX = document.createElement("input");
+    DEX = document.createElement("input");
     DEX.setAttribute("type", "text");
     DEX.setAttribute("name", "dexMod");
     DEX.setAttribute("placeholder", "Dexterity Modifier");
 
     form.appendChild(DEX);
 
-    var CON = document.createElement("input");
+    CON = document.createElement("input");
     CON.setAttribute("type", "text");
     CON.setAttribute("name", "conMod");
     CON.setAttribute("placeholder", "Constitution Modifier");
 
     form.appendChild(CON);
 
-    var INT = document.createElement("input");
+    INT = document.createElement("input");
     INT.setAttribute("type", "text");
     INT.setAttribute("name", "intMod");
     INT.setAttribute("placeholder", "Intelligence Modifier");
 
     form.appendChild(INT);
 
-    var WIS = document.createElement("input");
+    WIS = document.createElement("input");
     WIS.setAttribute("type", "text");
     WIS.setAttribute("name", "wisMod");
     WIS.setAttribute("placeholder", "Wisdom Modifier");
 
     form.appendChild(WIS);
 
-    var CHA = document.createElement("input");
+    CHA = document.createElement("input");
     CHA.setAttribute("type", "text");
     CHA.setAttribute("name", "chaMod");
     CHA.setAttribute("placeholder", "Charisma Modifier");
@@ -130,7 +156,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     
 
-    var SavingThrows = document.createElement("input");
+    SavingThrows = document.createElement("input");
     SavingThrows.setAttribute("type", "text");
     SavingThrows.setAttribute("name", "savingThrows");
     SavingThrows.setAttribute("placeholder", "Saving Throw Proficiencies");
@@ -139,14 +165,14 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var Darkvision = document.createElement("input");
+    Darkvision = document.createElement("input");
     Darkvision.setAttribute("type", "text");
     Darkvision.setAttribute("name", "darkvision");
     Darkvision.setAttribute("placeholder", "Darkvision Distance");
 
     form.appendChild(Darkvision); 
     
-    var PassivePerception = document.createElement("input");
+    PassivePerception = document.createElement("input");
     PassivePerception.setAttribute("type", "text");
     PassivePerception.setAttribute("name", "passivePerception");
     PassivePerception.setAttribute("placeholder", "Passive Perception");
@@ -155,14 +181,14 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var DamageResistances = document.createElement("input");
+    DamageResistances = document.createElement("input");
     DamageResistances.setAttribute("type", "text");
     DamageResistances.setAttribute("name", "damageResistances");
     DamageResistances.setAttribute("placeholder", "Damage Resistances");
 
     form.appendChild(DamageResistances);
 
-    var DamageImmunities = document.createElement("input");
+    DamageImmunities = document.createElement("input");
     DamageImmunities.setAttribute("type", "text");
     DamageImmunities.setAttribute("name", "damageImmunities");
     DamageImmunities.setAttribute("placeholder", "Damage Immunities");
@@ -171,7 +197,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var ConditionImmunities = document.createElement("input");
+    ConditionImmunities = document.createElement("input");
     ConditionImmunities.setAttribute("type", "text");
     ConditionImmunities.setAttribute("name", "conditionImmunities");
     ConditionImmunities.setAttribute("placeholder", "Condition Immunities");
@@ -180,7 +206,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var Languages = document.createElement("input");
+    Languages = document.createElement("input");
     Languages.setAttribute("type", "text");
     Languages.setAttribute("name", "languages");
     Languages.setAttribute("placeholder", "Languages");
@@ -189,7 +215,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var Telepathy = document.createElement("input");
+    Telepathy = document.createElement("input");
     Telepathy.setAttribute("type", "text");
     Telepathy.setAttribute("name", "telepathy");
     Telepathy.setAttribute("placeholder", "Telepathy");
@@ -198,12 +224,12 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
-    var Extra = document.createElement("input");
-    Extra.setAttribute("type", "text");
-    Extra.setAttribute("name", "extra");
-    Extra.setAttribute("placeholder", "Extra");
+    Extras = document.createElement("input");
+    Extras.setAttribute("type", "text");
+    Extras.setAttribute("name", "extras");
+    Extras.setAttribute("placeholder", "Extra");
 
-    form.appendChild(Extra);
+    form.appendChild(Extras);
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
     
@@ -299,8 +325,8 @@ function generateFightMacro() {
     // Loop through the creatures array, generating stats and abilities for each
 }
 
-function generateStatMacro(name,str,dex,con,int,wis,cha,savingThrows,skills,darkvision,passivePerception,dmgResistances,dmgImmunities,condImmunities,languages,telepathy,extras) {
-    // Pretty straightforward function to generate the stat whisper block
+function generateStatMacro() {
+    // Pretty straightforward function to generate the stat whisper block using global variables
 }
 
 // Function to turn abilities array into copyable macros
