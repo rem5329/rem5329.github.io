@@ -235,6 +235,11 @@ function displayCreatureAbilityForm(curAbility) {
     
 }
 
+function submitCreature() {
+    // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
+    //    then clears the page and starts a new creature
+}
+
 // *************************** DROP DOWN MENUS *****************************
 
 function createAbilityActionCategories() {
@@ -267,6 +272,10 @@ function createAbilityTypes() {
 }
 
 // ****************** MACRO GENERATION SECTION ******************************
+
+function generateFightMacro() {
+    // Loop through the creatures array, generating stats and abilities for each
+}
 
 function generateStatMacro(name,str,dex,con,int,wis,cha,savingThrows,skills,darkvision,passivePerception,dmgResistances,dmgImmunities,condImmunities,languages,telepathy,extras) {
     // Pretty straightforward function to generate the stat whisper block
