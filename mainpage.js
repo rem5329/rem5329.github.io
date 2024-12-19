@@ -30,11 +30,23 @@ function creature(name,abilityList) {
     this.abiityList = abilityList;
 }
 
+var curCreature;
+
 // ******************************************* DISPLAY FORMS **********************************
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
 
+    //generate a fresh creature object
+    curCreature = null;
+    innateList = {};
+    actionList = {};
+    condActionList = {};
+    bonusActionList = {};
+    reactionList = {};
+    utilityList = {};
+    curCreature.abilityList = new abilities(innateList,actionList,condActionList,bonusActionList,reactionList,utilityList);
+    
     var form = document.createElement("form");
     form.setAttribute("id","mainForm");
     form.setAttribute("method","post");
@@ -196,7 +208,7 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     
     
-    createAbilityActionCategories(form);
+    menuAbilityActionCategories(form);
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
 
@@ -208,10 +220,10 @@ function displayCreatureForm() {
 
 
 function displayCreatureAbilityForm(curAbility) {
-    // Should display in a loop in this class
-    // Each loop iteration should add to the correct section of the "abilities" object
-    // At the end , send the abilities object to be processed and transformed
-
+    // each time this is called, generate a new ability prompt
+    
+    
+    
     switch (curAbility.type) {
         case innate:
             displayInnateForm();
@@ -232,8 +244,18 @@ function displayCreatureAbilityForm(curAbility) {
             displayUtilityForm();
             break;
     };
-    
 }
+
+function displayInnateForm() {
+}
+
+function displayActionForm() {
+}
+
+function displayCondActionForm() {
+}
+
+function displayBonusActionForm()
 
 function submitCreature() {
     // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
@@ -242,7 +264,7 @@ function submitCreature() {
 
 // *************************** DROP DOWN MENUS *****************************
 
-function createAbilityActionCategories(form) {
+function menuAbilityActionCategories(form) {
     var AddAbility = document.createElement("select");
     AddAbility.add(new Option("Innate Ability", "innate"));
     AddAbility.add(new Option("Action", "action"));
@@ -256,7 +278,7 @@ function createAbilityActionCategories(form) {
     form.appendChild(AddAbility);
 }
 
-function createAbilityTypes(form) {
+function menuAttackAndSaveTypes(form) {
     var AddAbilityType = document.createElement("select");
     AddAbilityType.add(new Option("Attack", "Attack"));
     AddAbilityType.add(new Option("Attack without Damage", "AttackNoDamage"));
