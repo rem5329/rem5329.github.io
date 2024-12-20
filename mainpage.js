@@ -1,6 +1,8 @@
 // ************************ VARIABLES ***************************
 
 var br = document.createElement("br");
+var curActionType;
+var curCreature;
 
 // Stats variables
 var NAME;
@@ -24,12 +26,12 @@ var Telepathy;
 var Extras;
 
 // Creature list to ingest for overall macro creation
-var creatureList = {};
+const creatureList = [];
 
 // ************************ OBJECTS *****************************
 
-// Tuples Object
-function ability(key,value,actionType,abilityType) {
+// Ability Object
+function Ability(key,value,actionType,abilityType) {
     this.key = key;
     this.value = value;
     this.actionType = actionType;
@@ -37,7 +39,7 @@ function ability(key,value,actionType,abilityType) {
 }
 
 // Abilities Object
-function abilities(innate,actions,condActions,bonusActions,reactions,utilities) {
+function Abilities(innate,actions,condActions,bonusActions,reactions,utilities) {
     this.innate = innate;
     this.actions = actions;
     this.condActions = condActions;
@@ -46,17 +48,12 @@ function abilities(innate,actions,condActions,bonusActions,reactions,utilities) 
     this.utilities = utilities;
 }
 
-function stats(name,ac,hp,ms,str,dex,con,int,wis,cha,savingThrows,darkvision,passivePerception,damageResistances,damageImmunities,conditionImmunities,languages,telepathy,extras) {
-}
-
 // Creature Object
-function creature(name,statList,abilityList) {
+function Creature(name,statList,abilityList) {
     this.name = name;
     this.statList = statList;
     this.abiityList = abilityList;
 }
-
-var curCreature;
 
 // ******************************************* DISPLAY FORMS **********************************
 
@@ -245,14 +242,14 @@ function displayCreatureForm() {
 
 
 
-function displayCreatureAbilityForm(curAbility) {
+function displayIndividualAbilityForm(abilityActionType) {
     // each time this is called, generate a new ability prompt
+    // append this ability to the abilityList of the creature
     
     
-    
-    switch (curAbility.type) {
+    switch (abilityActionType) {
         case innate:
-            displayInnateForm();
+            curCreature.abilityList[curCreature.abilityList.length] =
             break;
         case action:
             displayActionForm();
@@ -272,20 +269,13 @@ function displayCreatureAbilityForm(curAbility) {
     };
 }
 
-function displayInnateForm() {
-}
-
-function displayActionForm() {
-}
-
-function displayCondActionForm() {
-}
-
-function displayBonusActionForm()
-
 function submitCreature() {
     // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
     //    then clears the page and starts a new creature
+
+    creatureList[creatureList.length] = curCreature;
+
+    //Now reset the inputBlock and display the completed creature at the top of the page
 }
 
 // *************************** DROP DOWN MENUS *****************************
@@ -298,8 +288,10 @@ function menuAbilityActionCategories(form) {
     AddAbility.add(new Option("Bonus Action", "bonusAction"));
     AddAbility.add(new Option("Reaction", "reaction"));
     AddAbility.add(new Option("Utility", "utility"));
+
+    curActionType = AddAbility.value;
     
-    AddAbility.addEventListener('change', function(){displayCreatureAbilityForm(AddAbility.value)}); 
+    AddAbility.addEventListener('change', function(){menuAttackAndSaveTypes(form)}); 
 
     form.appendChild(AddAbility);
 }
@@ -314,7 +306,7 @@ function menuAttackAndSaveTypes(form) {
     AddAbilityType.add(new Option("Skill/Ability Check", "Check"));
     AddAbilityType.add(new Option("Spell", "Spell"));
     AddAbilityType.add(new Option("Utility", "Utility"));
-    AddAbilityType.addEventListener('change', function(){displayCreatureAbilityForm(AddAbilityType.value)});
+    AddAbilityType.addEventListener('change', function(){displayIndividualAbilityForm(AddAbilityType.value)});
 
     form.appendChild(AddAbilityType);
 }
@@ -333,6 +325,8 @@ function generateStatMacro() {
 function generateCreatureMacro(abilities) {
     var macroStr;
 
+    curCreature.abilityList[curCreature.abilityList.length]
+    
     for (innate in abilities.innate) {
         appendToOutput(generateAbilityMacro(innate));
         appendToCreatureMacro(innate);
