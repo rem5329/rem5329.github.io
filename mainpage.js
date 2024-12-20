@@ -1,8 +1,10 @@
 // ************************ VARIABLES ***************************
 
 var br = document.createElement("br");
-var curActionType;
 var curCreature;
+
+var AddAbility; // ability action type
+var AddAbilityType; // ability display type
 
 // Stats variables
 var NAME;
@@ -31,28 +33,18 @@ const creatureList = [];
 // ************************ OBJECTS *****************************
 
 // Ability Object
-function Ability(key,value,actionType,abilityType) {
+function Ability(key,value,actionUsedType,abilityDisplayType) {
     this.key = key;
     this.value = value;
-    this.actionType = actionType;
-    this.abilityType = abilityType;
-}
-
-// Abilities Object
-function Abilities(innate,actions,condActions,bonusActions,reactions,utilities) {
-    this.innate = innate;
-    this.actions = actions;
-    this.condActions = condActions;
-    this.bonusActions = bonusActions;
-    this.reactions = reactions;
-    this.utilities = utilities;
+    this.actionUsedType = actionUsedType;
+    this.abilityDisplayType = abilityDisplayType;
 }
 
 // Creature Object
-function Creature(name,statList,abilityList) {
+function Creature(name,statList,abilities) {
     this.name = name;
     this.statList = statList;
-    this.abiityList = abilityList;
+    this.abilities = abilities;
 }
 
 // ******************************************* DISPLAY FORMS **********************************
@@ -242,12 +234,12 @@ function displayCreatureForm() {
 
 
 
-function displayIndividualAbilityForm(abilityActionType) {
+function displayIndividualAbilityForm(form) {
     // each time this is called, generate a new ability prompt
     // append this ability to the abilityList of the creature
     
     
-    switch (abilityActionType) {
+    switch (curActionType) {
         case innate:
             curCreature.abilityList[curCreature.abilityList.length] =
             break;
@@ -267,12 +259,17 @@ function displayIndividualAbilityForm(abilityActionType) {
             displayUtilityForm();
             break;
     };
+
+    menuAbilityActionCategories(farm)
 }
 
 function submitCreature() {
     // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
     //    then clears the page and starts a new creature
 
+    var abilityActionType = AddAbility.value; // Ability action type
+    var abilityDisplayType = AddAbilityType.value; // Ability display type
+    
     creatureList[creatureList.length] = curCreature;
 
     //Now reset the inputBlock and display the completed creature at the top of the page
@@ -281,7 +278,7 @@ function submitCreature() {
 // *************************** DROP DOWN MENUS *****************************
 
 function menuAbilityActionCategories(form) {
-    var AddAbility = document.createElement("select");
+    AddAbility = document.createElement("select");
     AddAbility.add(new Option("Innate Ability", "innate"));
     AddAbility.add(new Option("Action", "action"));
     AddAbility.add(new Option("Conditional Action", "condAction"));
@@ -297,7 +294,7 @@ function menuAbilityActionCategories(form) {
 }
 
 function menuAttackAndSaveTypes(form) {
-    var AddAbilityType = document.createElement("select");
+    AddAbilityType = document.createElement("select");
     AddAbilityType.add(new Option("Attack", "Attack"));
     AddAbilityType.add(new Option("Attack without Damage", "AttackNoDamage"));
     AddAbilityType.add(new Option("Attack with Save", "AttackSave"));
@@ -306,7 +303,9 @@ function menuAttackAndSaveTypes(form) {
     AddAbilityType.add(new Option("Skill/Ability Check", "Check"));
     AddAbilityType.add(new Option("Spell", "Spell"));
     AddAbilityType.add(new Option("Utility", "Utility"));
-    AddAbilityType.addEventListener('change', function(){displayIndividualAbilityForm(AddAbilityType.value)});
+    AddAbilityType.addEventListener('change', function(){displayIndividualAbilityForm(form)});
+
+    curAbilityDisplayType = AddAbilityType
 
     form.appendChild(AddAbilityType);
 }
@@ -315,9 +314,22 @@ function menuAttackAndSaveTypes(form) {
 
 function generateFightMacro() {
     // Loop through the creatures array, generating stats and abilities for each
+    var fightMacroString = "";
+    for (const creature of creatures) {
+        // Append the current creature to the fight macro as a macro call
+        fightMacroString.concat('#' + creature.name + '\n');
+        
+        // Generate stat macros
+        generateStatMacro();
+        
+        // Generate creature macros
+        generateCreatureMacros(creature.abilityList);
+    }
+
+    appendToOutput(fightMacroString)
 }
 
-function generateStatMacro() {
+function generateStatMacro() { // ************************TODO
     // Pretty straightforward function to generate the stat whisper block using global variables
 }
 
