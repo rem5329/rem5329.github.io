@@ -2,6 +2,8 @@
 
 var br = document.createElement("br");
 var curCreature;
+var curStats;
+var curAbilityList = [];
 
 var AddAbility; // ability action type
 var AddAbilityType; // ability display type
@@ -27,10 +29,32 @@ var Languages;
 var Telepathy;
 var Extras;
 
+// Individual ability action types
+innateList = [];
+actionList = [];
+condActionList = [];
+bonusActionList = [];
+reactionList = [];
+utilityList = [];
+
 // Creature list to ingest for overall macro creation
 const creatureList = [];
 
 // ************************ OBJECTS *****************************
+
+// Stats Object
+function Stats(name,ac,hp,ms,str,dex,con,int,wis,cha,savingThrows,darkvision,passivePerception,damageResistances,damageImmunities,conditionImmunities,languages,telepathy,extras) {
+    this.name = name;
+    this.ac = ac;
+    this.ms = ms;
+    this.str = str;
+    this.dex = dex;
+    this.con = con;
+    this.int = int;
+    this.wis = wis;
+    this.cha = cha;
+    this.savingThrows = savingThrows;
+}
 
 // Ability Object
 function Ability(key,value,actionUsedType,abilityDisplayType) {
@@ -41,9 +65,9 @@ function Ability(key,value,actionUsedType,abilityDisplayType) {
 }
 
 // Creature Object
-function Creature(name,statList,abilities) {
+function Creature(name,stats,abilities) {
     this.name = name;
-    this.statList = statList;
+    this.stats = stats;
     this.abilities = abilities;
 }
 
@@ -51,16 +75,6 @@ function Creature(name,statList,abilities) {
 
 // Each creature and attack needs a form display function
 function displayCreatureForm() {
-    
-    //generate a fresh creature object in the global variable
-    curCreature = null;
-    innateList = {};
-    actionList = {};
-    condActionList = {};
-    bonusActionList = {};
-    reactionList = {};
-    utilityList = {};
-    curCreature.abilityList = new abilities(innateList,actionList,condActionList,bonusActionList,reactionList,utilityList);
     
     var form = document.createElement("form");
     form.setAttribute("id","mainForm");
@@ -70,6 +84,8 @@ function displayCreatureForm() {
     NAME.setAttribute("type", "text");
     NAME.setAttribute("name", "creatureName");
     NAME.setAttribute("placeholder", "Creature Name");
+
+    curCreature.name = NAME;
     
     form.appendChild(NAME);
     form.appendChild(br.cloneNode());
@@ -241,7 +257,7 @@ function displayIndividualAbilityForm(form) {
     
     switch (curActionType) {
         case innate:
-            curCreature.abilityList[curCreature.abilityList.length] =
+            curCreature.abilities[curCreature.abilities.length] = 
             break;
         case action:
             displayActionForm();
@@ -260,20 +276,11 @@ function displayIndividualAbilityForm(form) {
             break;
     };
 
-    menuAbilityActionCategories(farm)
+    // Show the action category menu again, to add another ability
+    menuAbilityActionCategories(form);
 }
 
-function submitCreature() {
-    // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
-    //    then clears the page and starts a new creature
 
-    var abilityActionType = AddAbility.value; // Ability action type
-    var abilityDisplayType = AddAbilityType.value; // Ability display type
-    
-    creatureList[creatureList.length] = curCreature;
-
-    //Now reset the inputBlock and display the completed creature at the top of the page
-}
 
 // *************************** DROP DOWN MENUS *****************************
 
@@ -312,6 +319,27 @@ function menuAttackAndSaveTypes(form) {
 
 // ****************** MACRO GENERATION SECTION ******************************
 
+// Called from the submit creature button
+function submitCreature() {
+    // Takes all data from all active forms, puts it into an object that's added to the creature list, displays that creature at the top of the page,
+    //    then clears the page and starts a new creature
+
+    curStats = new Stats(NAME,AC,HP,);
+    //generate a fresh creature object
+    curCreature = new Creature(NAME.value, curStats, curAbilityList);
+
+    var abilityActionType = AddAbility.value; // Ability action type
+    var abilityDisplayType = AddAbilityType.value; // Ability display type
+    
+    creatureList[creatureList.length] = curCreature;
+
+    //Now reset the inputBlock and display the completed creature at the top of the page
+    
+    document.getElementById("inputBlock").innerHTML = "";
+    document.getElementById("inputBlock").innerHTML = "";
+}
+
+// Called from the submit and create all button
 function generateFightMacro() {
     // Loop through the creatures array, generating stats and abilities for each
     var fightMacroString = "";
@@ -326,7 +354,17 @@ function generateFightMacro() {
         generateCreatureMacros(creature.abilityList);
     }
 
-    appendToOutput(fightMacroString)
+    appendToOutput(fightMacroString);
+
+    // Now reset all variables
+    curCreature = null;
+    creatureList = [];
+    innateList = [];
+    actionList = [];
+    condActionList = [];
+    bonusActionList = [];
+    reactionList = [];
+    utilityList = [];
 }
 
 function generateStatMacro() { // ************************TODO
