@@ -57,18 +57,22 @@ function Stats(name,ac,hp,ms,str,dex,con,int,wis,cha,savingThrows,darkvision,pas
 }
 
 // Ability Object
-function Ability(key,value,actionUsedType,abilityDisplayType) {
-    this.key = key;
-    this.value = value;
+function Ability(actionUsedType,abilityDisplayType,valuesList) {
     this.actionUsedType = actionUsedType;
     this.abilityDisplayType = abilityDisplayType;
+    this.valuesList = valuesList;
 }
+
+// Ability Value Object
+function AbilityValue(key,value) {
+    this.key = key;
+    this.value = value;
 
 // Creature Object
 function Creature(name,stats,abilities) {
     this.name = name;
     this.stats = stats;
-    this.abilities = abilities;
+    this.abilityList = abilityList;
 }
 
 // ******************************************* DISPLAY FORMS **********************************
@@ -253,10 +257,41 @@ function displayCreatureForm() {
 function displayIndividualAbilityForm(form) {
     // each time this is called, generate a new ability prompt
     // append this ability to the abilityList of the creature
+    var ability;
+
+    valueList = [];
+    ability = new Ability(curActionType,curAbilityDisplayType,valueList);
+
+    switch (ability.abilityDisplayType) {
+        case Attack:
+            displayAttackFields(form, ability.valueList);
+            break;
+        case AttackNoDamage:
+            displayAttackNoDamageFields(form, ability.valueList);
+            break;
+        case AttackSave:
+            displayAttackSaveFields(form, ability.valueList);
+            break;
+        case Save:
+            displaySaveFields(form, ability.valueList);
+            break;
+        case Damage:
+            displayDamageFields(form, ability.valueList);
+            break;
+        case Check:
+            displayCheckFields(form, ability.valueList);
+            break;
+        case Spell:
+            displaySpellFields(form, ability.valueList);
+            break;
+        case Utility:
+            displayUtilityFields(form, ability.valueList);
+            break;
+    };
     
-    
-    switch (curActionType) {
+    /*****switch (curActionType) {
         case innate:
+            ability = new Ability(
             curCreature.abilities[curCreature.abilities.length] = 
             break;
         case action:
@@ -274,10 +309,36 @@ function displayIndividualAbilityForm(form) {
         case utility:
             displayUtilityForm();
             break;
-    };
+    };********/
 
+    curCreature.abilityList[curCreature.abilityList.length] = ability;
+    
     // Show the action category menu again, to add another ability
     menuAbilityActionCategories(form);
+}
+
+function displayAttackFields(form, valueList) {
+}
+
+function displayAttackNoDamageFields(form,valueList) {
+}
+
+function displayAttackSaveFields(form,valueList) {
+}
+
+function displaySaveFields(form,valueList) {
+}
+
+function displayDamageFields(form,valueList) {
+}
+
+function displayCheckFields(form,valueList) {
+}
+
+function displaySpellFields(form,valueList) {
+}
+
+function displayUtilityFields(form,valueList) {
 }
 
 
@@ -312,7 +373,7 @@ function menuAttackAndSaveTypes(form) {
     AddAbilityType.add(new Option("Utility", "Utility"));
     AddAbilityType.addEventListener('change', function(){displayIndividualAbilityForm(form)});
 
-    curAbilityDisplayType = AddAbilityType
+    curAbilityDisplayType = AddAbilityType;
 
     form.appendChild(AddAbilityType);
 }
@@ -335,8 +396,10 @@ function submitCreature() {
 
     //Now reset the inputBlock and display the completed creature at the top of the page
     
+    document.getElementById("creaturesCreated").innerHTML += curCreature.name;
     document.getElementById("inputBlock").innerHTML = "";
-    document.getElementById("inputBlock").innerHTML = "";
+
+    curCreature = null;
 }
 
 // Called from the submit and create all button
