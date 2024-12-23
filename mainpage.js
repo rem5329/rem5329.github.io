@@ -416,12 +416,6 @@ function generateFightMacro() {
     // Now reset all variables
     curCreature = null;
     creatureList = [];
-    innateList = [];
-    actionList = [];
-    condActionList = [];
-    bonusActionList = [];
-    reactionList = [];
-    utilityList = [];
 }
 
 function generateStatMacro() { // ************************TODO
