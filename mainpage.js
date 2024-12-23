@@ -67,6 +67,7 @@ function Ability(actionUsedType,abilityDisplayType,valuesList) {
 function AbilityValue(key,value) {
     this.key = key;
     this.value = value;
+}
 
 // Creature Object
 function Creature(name,stats,abilities) {
