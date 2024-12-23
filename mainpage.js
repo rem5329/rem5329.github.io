@@ -29,14 +29,6 @@ var Languages;
 var Telepathy;
 var Extras;
 
-// Individual ability action types
-innateList = [];
-actionList = [];
-condActionList = [];
-bonusActionList = [];
-reactionList = [];
-utilityList = [];
-
 // Creature list to ingest for overall macro creation
 const creatureList = [];
 
@@ -89,8 +81,6 @@ function displayCreatureForm() {
     NAME.setAttribute("type", "text");
     NAME.setAttribute("name", "creatureName");
     NAME.setAttribute("placeholder", "Creature Name");
-
-    curCreature.name = NAME;
     
     form.appendChild(NAME);
     form.appendChild(br.cloneNode());
@@ -243,6 +233,9 @@ function displayCreatureForm() {
     form.appendChild(br.cloneNode());
     form.appendChild(br.cloneNode());
     
+    var statObj = new Stats();
+    var abilityList = [];
+    curCreature = new Creature(NAME, statObj, abilityList);
     
     menuAbilityActionCategories(form);
     form.appendChild(br.cloneNode());
